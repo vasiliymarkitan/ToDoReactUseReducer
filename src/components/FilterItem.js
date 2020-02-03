@@ -1,7 +1,8 @@
 import React from "react";
+import { SET_VISIBILITY_FILTER } from "../constants";
 
 export default function FilterItem(props) {
-  const { value, text, isActive, handleChangeFilter } = props;
+  const { value, text, isActive, dispatch } = props;
 
   return (
     <div
@@ -9,7 +10,10 @@ export default function FilterItem(props) {
         isActive ? "filter-list__item_active" : ""
       }`}
       onClick={() => {
-        handleChangeFilter(value);
+        dispatch({
+          type: SET_VISIBILITY_FILTER,
+          filter: value
+        });
       }}
     >
       {text}

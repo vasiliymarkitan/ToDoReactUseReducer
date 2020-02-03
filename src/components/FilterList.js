@@ -1,11 +1,9 @@
 import React from "react";
 import "./FilterList.css";
 import FilterItem from "./FilterItem";
-import { connect } from "react-redux";
-import { setVisibilityFilter } from "../redux/ac";
-import { VisibilityFilters } from "../redux/ac";
+import { VisibilityFilters } from "../constants";
 
-const FilterList = ({ filter, handleChangeFilter }) => {
+export default function FilterList(props) {
   const filterData = [
     { value: VisibilityFilters.SHOW_ALL, text: "Все" },
     { value: VisibilityFilters.SHOW_DONE, text: "Незавершенные" },
@@ -13,7 +11,7 @@ const FilterList = ({ filter, handleChangeFilter }) => {
   ];
 
   const filters = filterData.map(item => {
-    const isActive = filter === item.value;
+    const isActive = props.filter === item.value;
 
     return (
       <FilterItem
@@ -21,23 +19,10 @@ const FilterList = ({ filter, handleChangeFilter }) => {
         value={item.value}
         text={item.text}
         isActive={isActive}
-        handleChangeFilter={handleChangeFilter}
+        dispatch={props.dispatch}
       />
     );
   });
 
   return <div className="filter-list">{filters}</div>;
-};
-
-const mapStateToProps = state => ({
-  filter: state.visibilityFilter
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleChangeFilter: filter => dispatch(setVisibilityFilter(filter))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilterList);
+}

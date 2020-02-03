@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./Form.css";
-import { connect } from "react-redux";
-import { addTodo } from "../redux/ac";
+import { ADD_TODO } from "../constants";
 
-const Form = ({ handleAddTodo }) => {
+export default function Form(props) {
   const [value, setValue] = useState("");
 
   function handleChange(e) {
@@ -12,7 +11,11 @@ const Form = ({ handleAddTodo }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    value && handleAddTodo(value);
+    value &&
+      props.dispatch({
+        type: ADD_TODO,
+        text: value
+      });
     setValue("");
   }
 
@@ -28,13 +31,4 @@ const Form = ({ handleAddTodo }) => {
       <input type="submit" value="Отправить" />
     </form>
   );
-};
-
-const mapDispatchToProps = dispatch => ({
-  handleAddTodo: text => dispatch(addTodo(text))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Form);
+}

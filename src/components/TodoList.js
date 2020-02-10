@@ -9,7 +9,6 @@ export default function TodoList(props) {
       id={item.id}
       text={item.text}
       completed={item.completed}
-      dispatch={props.dispatch}
     />
   ));
 

@@ -19,7 +19,6 @@ export default function FilterList(props) {
         value={item.value}
         text={item.text}
         isActive={isActive}
-        dispatch={props.dispatch}
       />
     );
   });

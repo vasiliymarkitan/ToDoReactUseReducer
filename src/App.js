@@ -3,7 +3,6 @@ import "./styles.css";
 import TodoList from "./components/TodoList";
 import FilterList from "./components/FilterList";
 import Form from "./components/Form";
-import { AppContext } from "./utils/AppContext";
 
 import { VisibilityFilters } from "./constants";
 import { reducer, initialState } from "./reducer";
@@ -12,15 +11,14 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <AppContext.Provider value={dispatch}>
-      <div>
-        <FilterList filter={state.visibilityFilter} />
-        <TodoList
-          todos={getVisibleTodos(state.todos, state.visibilityFilter)}
-        />
-        <Form dispatch={dispatch} />
-      </div>
-    </AppContext.Provider>
+    <div>
+      <FilterList filter={state.visibilityFilter} dispatch={dispatch} />
+      <TodoList
+        todos={getVisibleTodos(state.todos, state.visibilityFilter)}
+        dispatch={dispatch}
+      />
+      <Form dispatch={dispatch} />
+    </div>
   );
 }
 
